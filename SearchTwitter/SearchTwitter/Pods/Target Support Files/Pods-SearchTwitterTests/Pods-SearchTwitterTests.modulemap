@@ -1,0 +1,6 @@
+framework module Pods_SearchTwitterTests {
+  umbrella header "Pods-SearchTwitterTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

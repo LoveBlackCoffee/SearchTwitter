@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  SearchTwitter
+
+  Created by kengo kato on 2021/05/29.
+  
+*/
+"error" = "error";
+"authLoginError" = "auth login error";
+"cancel" = "cancel";
+"ok" = "ok";

@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  SearchTwitter
+
+  Created by kengo kato on 2021/05/29.
+  
+*/
+"error" = "エラー";
+"authLoginError" = "ログイン認証に失敗しました。";
+"cancel" = "キャンセル";
+"ok" = "ok";
