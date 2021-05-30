@@ -30,6 +30,7 @@ class MainViewController: UIViewController {
         config()
     }
     
+    /// 初期設定
     private func config() {
         tableView.register(UINib(nibName: "TwitterCell", bundle: nil), forCellReuseIdentifier: "TwitterCell")
         refreshCtl = UIRefreshControl()
@@ -44,10 +45,23 @@ class MainViewController: UIViewController {
             
         } failure: { err in
             print("Error : \(err.localizedDescription)")
-            Util.showAlert(title: "error".localize(), message: "authLoginError".localize(), positiveButton: "ok".localize())
+            Util.showAlert(title: "error".localize(), message: "authLoginError".localize(), positiveButton: "ok".localize(),
+             positiveAction: {
+                // アプリを使用できないので、終了する
+                exit(0)
+            },
+            negativeAction:  {})
+
         }
     }
     
+    /// 検索処理
+    /// - Parameters:
+    ///   - text: 検索文字
+    ///   - isFirst: 初回検索かどうか
+    ///   - sinceID: 一番新しいTweetID
+    ///   - maxID: 一番古いTweetID
+    ///   - complete:
     private func search(text: String, isFirst: Bool = true, sinceID: String? = nil, maxID: String? = nil, complete: ((Bool) -> ())? = nil) {
         // 検索文字がない場合、読み込み中の場合は無視
         if text.count <= 0 || isLoading {
@@ -69,6 +83,7 @@ class MainViewController: UIViewController {
                 return
             }
 
+            // 結合tweet
             var joinTweet: [TwitterInfo] = []
             // 取得したtweet
             var newTweets: [TwitterInfo] = []
@@ -124,6 +139,7 @@ class MainViewController: UIViewController {
 extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let text = searchBar.text, text.count > 0 {
+            // 現在検索している文字列と違う場合は、検索結果を初期化しておく
             if searchWord != text {
                 twitters = []
             }
@@ -145,6 +161,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 選択ハイライトを消す　そもそもいらないかな？　今後詳細を製造時に必要か？
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -156,6 +173,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // 画像だけ表示直前で行うようにする
         if let cell = cell as? TwitterCell {
             let info = twitters[indexPath.row]
             cell.setIconImage(imageUrl: info.imageUrl)
@@ -163,6 +181,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // 再読み込み処理 scrollViewの判定処理は増えたら必要
         let currentOffsetY = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.height
         if currentOffsetY >= maximumOffset && tableView.isDragging {

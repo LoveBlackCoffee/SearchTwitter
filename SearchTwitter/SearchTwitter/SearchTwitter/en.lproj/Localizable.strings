@@ -6,6 +6,6 @@
   
 */
 "error" = "error";
-"authLoginError" = "auth login error";
+"authLoginError" = "auth login error\nApp close";
 "cancel" = "cancel";
 "ok" = "ok";

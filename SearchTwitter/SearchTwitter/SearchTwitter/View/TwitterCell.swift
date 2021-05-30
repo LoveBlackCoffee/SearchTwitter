@@ -24,8 +24,10 @@ class TwitterCell: UITableViewCell {
     func setIconImage(imageUrl: String?) {
         if let imageUrl = imageUrl {
             DispatchQueue.global(qos: .userInitiated).async {
+                // キャッシュは今後検討
                 let data = self.getImageData(url: imageUrl)
                 DispatchQueue.main.async {
+                    // noImageをセットしておく
                     self.iconImage.image = UIImage(named: "noImage")
                     if let data = data {
                         self.iconImage.image = UIImage(data: data)
@@ -35,7 +37,7 @@ class TwitterCell: UITableViewCell {
         }
     }
     
-    func getImageData(url: String) -> Data? {
+    private func getImageData(url: String) -> Data? {
         let url = URL(string: url)
         do {
             let data = try Data(contentsOf: url!)

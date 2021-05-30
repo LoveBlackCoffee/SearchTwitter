@@ -6,6 +6,6 @@
   
 */
 "error" = "エラー";
-"authLoginError" = "ログイン認証に失敗しました。";
+"authLoginError" = "ログイン認証に失敗しました。\nアプリを終了します。";
 "cancel" = "キャンセル";
 "ok" = "ok";

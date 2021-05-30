@@ -75,6 +75,7 @@ class Util {
         }
     }
     
+    // 最前面のViewControllerの取得
     class func getTopViewController() -> UIViewController? {
         var vc = UIApplication.shared.windows.first?.rootViewController
         while vc?.presentedViewController != nil {
